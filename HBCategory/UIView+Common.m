@@ -10,6 +10,7 @@
 #define kTagBadgeView  1000
 #define kTagLineView 1007
 #import <objc/runtime.h>
+#import "UIColor+expanded.h"
 
 CGPoint CGRectGetCenter(CGRect rect)
 {
@@ -480,19 +481,6 @@ static char LoadingViewKey, BlankPageViewKey;
 }
 
 
-
-
-+ (CGRect)frameWithOutNavTab{
-    CGRect frame = kScreen_Bounds;
-    frame.size.height -= (20+44+49);//减去状态栏、导航栏、Tab栏的高度
-    return frame;
-}
-+ (CGRect)frameWithOutNav{
-    CGRect frame = kScreen_Bounds;
-    frame.size.height -= (20+44);//减去状态栏、导航栏的高度
-    return frame;
-}
-
 + (UIViewAnimationOptions)animationOptionsForCurve:(UIViewAnimationCurve)curve
 {
     switch (curve) {
@@ -514,23 +502,23 @@ static char LoadingViewKey, BlankPageViewKey;
 }
 
 + (UIView *)lineViewWithPointYY:(CGFloat)pointY{
-    return [UIView lineViewWithPointYY:pointY andColor:kLineColor_gray];
+    return [UIView lineViewWithPointYY:pointY andColor:[UIColor colorWithHexString:@"0xEEEEEE"]];
 }
 
 + (UIView *)lineViewWithPointYY:(CGFloat)pointY andColor:(UIColor *)color{
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, pointY, kScreen_Width, 0.5)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, pointY, UIApplication.sharedApplication.keyWindow.frame.size.width, 0.5)];
     lineView.backgroundColor = color;
     return lineView;
 }
 
 + (UIView *)lineViewWithPointYY:(CGFloat)pointY andColor:(UIColor *)color andLeft:(float)left andRight:(float)right{
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(left, pointY, kScreen_Width-left-right, 0.5)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(left, pointY, UIApplication.sharedApplication.keyWindow.frame.size.width-left-right, 0.5)];
     lineView.backgroundColor = color;
     return lineView;
 }
 
 - (void)addLineUp:(BOOL)hasUp andDown:(BOOL)hasDown{
-    [self addLineUp:hasUp andDown:hasDown andColor:kLineColor_gray withLeftSpadding:0 withRightSpadding:0];
+    [self addLineUp:hasUp andDown:hasDown andColor:[UIColor colorWithHexString:@"0xEEEEEE"] withLeftSpadding:0 withRightSpadding:0];
 }
 
 - (void)addLineUp:(BOOL)hasUp andDown:(BOOL)hasDown andColor:(UIColor *)color{
@@ -547,11 +535,11 @@ static char LoadingViewKey, BlankPageViewKey;
     }
 }
 - (void)addLineUp:(BOOL)hasUp andDown:(BOOL)hasDown withLeftSpadding:(float)left withRightSpadding:(float)right{
-    [self addLineUp:hasUp andDown:hasDown andColor:kLineColor_gray withLeftSpadding:left withRightSpadding:right];
+    [self addLineUp:hasUp andDown:hasDown andColor:[UIColor colorWithHexString:@"0xEEEEEE"] withLeftSpadding:left withRightSpadding:right];
 }
 
 - (void)addLineUp:(BOOL)hasUp withUpSpadding:(float)up andDown:(BOOL)hasDown  withDownSpadding:(float)dowm{
-    [self addLineUp:hasUp andDown:hasDown andColor:kLineColor_gray withUpSpadding:up withDowmSpadding:dowm];
+    [self addLineUp:hasUp andDown:hasDown andColor:[UIColor colorWithHexString:@"0xEEEEEE"] withUpSpadding:up withDowmSpadding:dowm];
 }
 
 

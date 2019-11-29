@@ -10,7 +10,6 @@
 #import "NSString+Common.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "sys/utsname.h"
-
 #define kNetPath_Code_Base        @"https://coding.net/"
 
 @implementation NSString (Common)
@@ -1202,21 +1201,6 @@ char pinyinFirstLetter(unsigned short hanzi)
     contentSize = [self boundingRectWithSize:size options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:attributes context:nil].size;
     contentSize = CGSizeMake((int)contentSize.width + 1, (int)contentSize.height + 1);
     return contentSize;
-}
-
-+ (CGFloat)getLableHeight:(NSString *)message width:(CGFloat)width lineSpacing:(CGFloat)lineSpace stringFont:(UIFont *)font
-{
-    NSMutableAttributedString *introText = [[NSMutableAttributedString alloc] initWithString:message];
-    introText.yy_font = font;
-    introText.yy_minimumLineHeight = lineSpace;//行间距
-    YYLabel *lable = [[YYLabel alloc] initWithFrame:CGRectMake(0, 0, width, CGFLOAT_MAX)];
-    lable.attributedText = introText;
-    CGSize introSize = CGSizeMake(lable.frame.size.width, CGFLOAT_MAX);
-    YYTextLayout *layout = [YYTextLayout layoutWithContainerSize:introSize text:introText];
-    lable.textLayout = layout;
-    CGFloat introHeight = layout.textBoundingSize.height;
-    return introHeight;
-    
 }
 
 @end

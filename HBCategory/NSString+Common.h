@@ -41,8 +41,7 @@ char pinyinFirstLetter(unsigned short hanzi);
 //自适应位置宽度
 - (CGFloat)getWidthWithTitle:(NSString *)title font:(UIFont *)font;
 -(CGFloat)getSpaceLabelHeight:(NSString*)str withFont:(UIFont*)font withWidth:(CGFloat)width lineHeight:(CGFloat)lineHeight linSpace:(CGFloat)lineSpace;
-//YYText计算行高方法，只适用于YYText！
-+ (CGFloat)getLableHeight:(NSString *)message width:(CGFloat)width lineSpacing:(CGFloat)lineSpace stringFont:(UIFont *)font;
+
 + (long)getCurrentTimeChangeSecond:(NSString *)date;
 
 - (BOOL)isContainsEmoji;
