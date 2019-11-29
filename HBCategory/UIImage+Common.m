@@ -7,7 +7,6 @@
 //
 
 #import "UIImage+Common.h"
-#import "HBDefines.h"
 
 @implementation UIImage (Common)
 +(UIImage *)imageWithColor:(UIColor *)aColor{
