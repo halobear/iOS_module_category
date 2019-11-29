@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import<QuartzCore/QuartzCore.h>
-//#import "WDActivityIndicatorView.h"
-#import "HBDefines.h"
 
 @class EaseLoadingView, EaseBlankPageView;
 
