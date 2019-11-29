@@ -886,13 +886,6 @@ char pinyinFirstLetter(unsigned short hanzi)
     return [[self componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
 }
 
-- (NSString *)stringByUrlEncoding
-{
-    NSString *url = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,  (CFStringRef)self,  NULL,  (CFStringRef)@"!*'();:@&=+$,/?%#[]",  kCFStringEncodingUTF8));
-    
-    return CommonReturnAutoReleased(url);
-}
-
 - (NSString *)capitalize
 {
     if (self == nil || [self length] == 0) return self;
@@ -1188,7 +1181,7 @@ char pinyinFirstLetter(unsigned short hanzi)
 - (CGSize)textSizeIn:(CGSize)size font:(UIFont *)afont breakMode:(NSLineBreakMode)abreakMode align:(NSTextAlignment)alignment
 {
     NSLineBreakMode breakMode = abreakMode;
-    UIFont *font = afont ? afont : kCommonMiddleTextFont;
+    UIFont *font = afont ? afont : [UIFont systemFontOfSize:14];
     
     CGSize contentSize = CGSizeZero;
     

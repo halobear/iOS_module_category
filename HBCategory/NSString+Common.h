@@ -98,9 +98,6 @@ char pinyinFirstLetter(unsigned short hanzi);
 - (NSString *)removeWhiteSpace;
 - (NSString *)removeNewLine;
 
-//将字符串以URL格式编码
-- (NSString *)stringByUrlEncoding;
-
 /*!
  @brief     大写第一个字符
  @return    格式化后的字符串
