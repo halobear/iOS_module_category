@@ -231,7 +231,7 @@
 //生成整个屏幕图片
 +(UIImage *)getImageWithFullScreenshot
 {
-    BOOL ignoreOrientation = isIOS8_or_Later;
+    BOOL ignoreOrientation = [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0;
     
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     
