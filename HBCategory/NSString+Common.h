@@ -140,13 +140,4 @@ char pinyinFirstLetter(unsigned short hanzi);
 - (CGSize)textSizeIn:(CGSize)size font:(UIFont *)font breakMode:(NSLineBreakMode)breakMode;
 - (CGSize)textSizeIn:(CGSize)size font:(UIFont *)font breakMode:(NSLineBreakMode)breakMode align:(NSTextAlignment)alignment;
 
--(BOOL)isExitCaseVideoFile:(NSString *)urlStr;
--(void)downVideoUrl:(NSString *)urlStr progress:(void (^)( CGFloat downloadProgress))progress;
--(void)downImageUrl:(NSString *)urlStr status:(void (^)( BOOL success))status;
--(NSArray *)getAllImageDown;
--(void)removeAllImageDown;
-//将字符串中文字部分转码
-- (NSString *)URLEncodeString;
--(BOOL)isExitCaseVideoFile:(NSString *)urlStr;
-
 @end
