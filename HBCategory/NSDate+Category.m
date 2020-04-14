@@ -401,4 +401,28 @@
     NSString *strDate = [dateFormatter stringFromDate:date];
     return strDate;
 }
+//字符串转日期
+- (NSDate *)stringToDate:(NSString *)dateStr withDateFormat:(NSString *)format
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:format];
+    NSDate *datestr = [dateFormatter dateFromString:dateStr];
+    return datestr;
+}
+//获取上一个月份
+- (NSString *)getUpMonth
+{
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM"];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *lastMonthComps = [[NSDateComponents alloc] init];
+    //[lastMonthComps setYear:1]; // year = 1表示1年后的时间 year = -1为1年前的日期，month day 类推
+    [lastMonthComps setMonth:-1];
+    NSDate *newdate = [calendar dateByAddingComponents:lastMonthComps toDate:currentDate options:0];
+    NSString *dateStr = [formatter stringFromDate:newdate];
+    return dateStr;
+}
+
 @end

@@ -1196,4 +1196,110 @@ char pinyinFirstLetter(unsigned short hanzi)
     return contentSize;
 }
 
+-(void)downImageUrl:(NSString *)urlStr status:(void (^)( BOOL success))status{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    cachesPath = [cachesPath stringByAppendingString:@"imageDown"];
+    NSFileManager *filemanager = [NSFileManager defaultManager];
+    if (![filemanager fileExistsAtPath:cachesPath]) {
+        [filemanager createDirectoryAtPath:cachesPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+//        CGFloat value = 1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount;
+        
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        
+        //设置下载路径，并将文件写入沙盒，最后返回NSURL对象
+        NSString *path = [cachesPath stringByAppendingPathComponent:response.suggestedFilename];
+//        NSLog(@"🍎path = %@",path);
+        return [NSURL fileURLWithPath:path];
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        
+        // 这里的filePath就是保存路径
+//        NSLog(@"🍎错误了 = %@",error.description);
+        if (error==nil) {
+            status(YES);
+        }
+    }];
+    
+    [task resume];
+}
+
+-(NSArray *)getAllImageDown{
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    cachesPath = [cachesPath stringByAppendingString:@"imageDown"];
+    NSFileManager *filemanager = [NSFileManager defaultManager];
+    if ([filemanager fileExistsAtPath:cachesPath]) {
+        NSArray *files = [filemanager subpathsOfDirectoryAtPath:cachesPath error:nil];
+        return files;
+    }
+    return nil;
+}
+
+-(void)removeAllImageDown{
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    cachesPath = [cachesPath stringByAppendingString:@"imageDown"];
+    NSFileManager *filemanager = [NSFileManager defaultManager];
+    if ([filemanager fileExistsAtPath:cachesPath]) {
+        [filemanager removeItemAtPath:cachesPath error:nil];
+    }
+}
+
+- (NSString *)URLEncodeString {
+    NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
+    NSString *encodedString = [self stringByAddingPercentEncodingWithAllowedCharacters:set];
+    return encodedString;
+}
+
+-(BOOL)isExitCaseVideoFile:(NSString *)urlStr{
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *lazypath = [[NSString stringWithFormat:@"%@/%@", cachesPath, urlStr.lastPathComponent] componentsSeparatedByString:@"?"].firstObject;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:lazypath]) {
+        return YES;
+    }else{
+        return NO;
+    }
+    return NO;
+}
+
+-(void)downVideoUrl:(NSString *)urlStr progress:(void (^)( CGFloat downloadProgress))progress{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSString *cachesPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+
+    NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+        CGFloat value = 1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount;
+        progress(value);
+        
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        
+        //设置下载路径，并将文件写入沙盒，最后返回NSURL对象
+        NSString *path = [cachesPath stringByAppendingPathComponent:response.suggestedFilename];
+//        NSLog(@"🍎path = %@",path);
+        return [NSURL fileURLWithPath:path];
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        
+        // 这里的filePath就是保存路径
+//        NSLog(@"🍎filePath = %@",filePath);
+        NSLog(@"🍎错误了 = %@",error.description);
+        NSString *path = [cachesPath stringByAppendingPathComponent:response.suggestedFilename];
+        [self saveVideoToPhoto:path];
+
+    }];
+    
+    [task resume];
+}
+
 @end

@@ -87,5 +87,9 @@
 
 //日期格式转字符串
 - (NSString *)dateToString:(NSDate *)date withDateFormat:(NSString *)format;
+//字符串转日期
+- (NSDate *)stringToDate:(NSString *)dateStr withDateFormat:(NSString *)format;
+//获取上一个月份
+- (NSString *)getUpMonth;
 
 @end
