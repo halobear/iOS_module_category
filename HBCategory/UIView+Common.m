@@ -477,9 +477,8 @@ static char LoadingViewKey, BlankPageViewKey;
     }
     layer.startPoint = startPoint;
     layer.endPoint = endPoint;
-    [self.layer addSublayer:layer];
+    [self.layer insertSublayer:layer atIndex:0];
 }
-
 
 + (UIViewAnimationOptions)animationOptionsForCurve:(UIViewAnimationCurve)curve
 {
