@@ -397,6 +397,7 @@
 - (NSString *)dateToString:(NSDate *)date withDateFormat:(NSString *)format
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [dateFormatter setDateFormat:format];
     NSString *strDate = [dateFormatter stringFromDate:date];
     return strDate;
